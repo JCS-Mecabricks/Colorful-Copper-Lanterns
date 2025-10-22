@@ -1,6 +1,8 @@
 package github.jcsmecabricks.block.lantern;
 
 import com.mojang.serialization.MapCodec;
+import com.phoen1x.block.ColorfulLanternBlock;
+import com.phoen1x.registry.config.ColorfulLanternsConfig;
 import eu.pb4.factorytools.api.block.FactoryBlock;
 import eu.pb4.factorytools.api.virtualentity.BlockModel;
 import eu.pb4.factorytools.api.virtualentity.ItemDisplayElementUtil;
@@ -89,26 +91,42 @@ public class RedCopperLantern extends BlockWithEntity implements TransparentTrip
         return CODEC;
     }
 
+    @Override
     public @Nullable BlockState getPlacementState(ItemPlacementContext ctx) {
         World world = ctx.getWorld();
         BlockPos pos = ctx.getBlockPos();
         Direction playerFacing = ctx.getHorizontalPlayerFacing().getOpposite();
         Direction clickedFace = ctx.getSide();
-        if (clickedFace.getAxis().isHorizontal() && ColorfulCopperLanternsConfig.get().PolyDecorationsLanterns) {
-            BlockState wallState = (BlockState)((BlockState)((BlockState)this.getDefaultState().with(HANGING, false)).with(FACING, clickedFace)).with(MODEL_TYPE, RedCopperLantern.ModelType.WALL);
+
+        if (ColorfulCopperLanternsConfig.get().PolyDecorationsLanterns && clickedFace.getAxis().isHorizontal()) {
+            BlockState wallState = this.getDefaultState()
+                    .with(HANGING, false)
+                    .with(FACING, clickedFace)
+                    .with(MODEL_TYPE, ModelType.WALL);
             if (wallState.canPlaceAt(world, pos)) {
                 return wallState;
             }
         }
 
-        BlockState hangingState = (BlockState)((BlockState)((BlockState)this.getDefaultState().with(HANGING, true)).with(FACING, playerFacing)).with(MODEL_TYPE, RedCopperLantern.ModelType.HANGING);
-        if (ctx.getSide() == Direction.DOWN && hangingState.canPlaceAt(world, pos)) {
-            return hangingState;
-        } else {
-            BlockState standingState = (BlockState)((BlockState)((BlockState)this.getDefaultState().with(HANGING, false)).with(FACING, playerFacing)).with(MODEL_TYPE, RedCopperLantern.ModelType.STANDING);
-            return standingState.canPlaceAt(world, pos) ? standingState : null;
+        // Hanging
+        if (clickedFace == Direction.DOWN) {
+            BlockState hangingState = this.getDefaultState()
+                    .with(HANGING, true)
+                    .with(FACING, playerFacing)
+                    .with(MODEL_TYPE, ModelType.HANGING);
+            if (hangingState.canPlaceAt(world, pos)) {
+                return hangingState;
+            }
         }
+
+        // Standing
+        BlockState standingState = this.getDefaultState()
+                .with(HANGING, false)
+                .with(FACING, playerFacing)
+                .with(MODEL_TYPE, ModelType.STANDING);
+        return standingState.canPlaceAt(world, pos) ? standingState : null;
     }
+
 
     @Override
     protected boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
