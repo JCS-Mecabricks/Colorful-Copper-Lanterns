@@ -1,0 +1,40 @@
+{
+	"schemaVersion": 1,
+	"id": "colored-copper-lanterns",
+	"version": "${version}",
+	"name": "Colored Copper Lanterns",
+	"description": "A Server-Side Mod that adds Colorful Copper Lanterns in addition to Colorful Lanterns",
+	"authors": [
+		"JCS"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "MIT",
+	"icon": "assets/colored-copper-lanterns/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"github.jcsmecabricks.ColoredCopperLanterns"
+		],
+		"fabric-datagen": [
+			"github.jcsmecabricks.ColoredCopperLanternsDataGenerator"
+		]
+	},
+	"mixins": [
+		"colored-copper-lanterns.mixins.json"
+	],
+	"depends": {
+      "fabricloader": ">=0.17.3",
+      "minecraft": ">=1.21.10",
+      "java": ">=21",
+      "fabric-api": "*",
+      "polymer-core": ">=0.13.7",
+      "polymer-resource-pack": ">=0.13.7",
+      "polymer-virtual-entity": ">=0.13.7"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}

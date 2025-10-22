@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:green_dye",
+    "minecraft:copper_lantern"
+  ],
+  "result": {
+    "count": 1,
+    "id": "colored-copper-lanterns:green_copper_lantern"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:gray_dye",
+    "minecraft:copper_lantern"
+  ],
+  "result": {
+    "count": 1,
+    "id": "colored-copper-lanterns:dark_gray_copper_lantern"
+  }
+}
