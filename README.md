@@ -1,4 +1,4 @@
-[![Modrinth Badge](https://img.shields.io/modrinth/dt/terrabiomes?label=Modrinth&logo=modrinth "View our Modrinth page")]([https://modrinth.com/mod/colorful-copper-lanterns](https://modrinth.com/mod/colorful-copper-lanterns))
+[![Modrinth Badge](https://img.shields.io/modrinth/dt/colorful-copper-lanterns?label=Modrinth&logo=modrinth "View our Modrinth page")]([https://modrinth.com/mod/colorful-copper-lanterns](https://modrinth.com/mod/colorful-copper-lanterns))
 [![GitHub License](https://img.shields.io/github/license/JCS-Mecabricks/Terrabiomes?color=%2342e3f5)](https://github.com/JCS-Mecabricks/Colorful-Copper-Lanterns/blob/master/LICENSE)
 [![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/JCS-Mecabricks/Terrabiomes?logo=github&color=yellow)](https://github.com/JCS-Mecabricks/Colorful-Copper-Lanterns/issues)
 
