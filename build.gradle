@@ -33,10 +33,6 @@ dependencies {
 	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
-    //Colorful Lanterns
-    modCompileOnly "maven.modrinth:colorful-lanterns:${project.colorful_lanterns_version_id}"
-    modLocalRuntime "maven.modrinth:colorful-lanterns:${project.colorful_lanterns_version_id}"
-
     //Polymer
     modImplementation ("eu.pb4:polymer-core:[${polymer_version}]")
     modImplementation ("eu.pb4:polymer-blocks:[${polymer_version}]")

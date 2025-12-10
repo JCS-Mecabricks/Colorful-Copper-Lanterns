@@ -1,8 +1,6 @@
 package github.jcsmecabricks.block.lantern;
 
 import com.mojang.serialization.MapCodec;
-import com.phoen1x.block.ColorfulLanternBlock;
-import com.phoen1x.registry.config.ColorfulLanternsConfig;
 import eu.pb4.factorytools.api.block.FactoryBlock;
 import eu.pb4.factorytools.api.virtualentity.BlockModel;
 import eu.pb4.factorytools.api.virtualentity.ItemDisplayElementUtil;
