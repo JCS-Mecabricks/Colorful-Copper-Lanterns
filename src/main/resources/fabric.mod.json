@@ -18,9 +18,6 @@
 		"main": [
 			"github.jcsmecabricks.ColoredCopperLanterns"
 		],
-      "client": [
-        "github.jcsmecabricks.ColoredCopperLanternsClient"
-      ],
       "fabric-datagen": [
 			"github.jcsmecabricks.ColoredCopperLanternsDataGenerator"
 		]

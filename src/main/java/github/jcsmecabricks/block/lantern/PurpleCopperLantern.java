@@ -1,6 +1,7 @@
 package github.jcsmecabricks.block.lantern;
 
 import com.mojang.serialization.MapCodec;
+import eu.pb4.factorytools.api.util.LazyItemStack;
 import eu.pb4.factorytools.api.virtualentity.ItemDisplayElementUtil;
 import github.jcsmecabricks.ColoredCopperLanterns;
 import github.jcsmecabricks.entity.PurpleCopperLanternBlockEntity;
@@ -38,9 +39,9 @@ public class PurpleCopperLantern extends RedCopperLantern {
     }
 
     public static final class Model extends RedCopperLantern.Model {
-        public static final ItemStack STANDING_MODEL = ItemDisplayElementUtil.getModel(Identifier.fromNamespaceAndPath(ColoredCopperLanterns.MOD_ID, "block/purple_copper_lantern"));
-        public static final ItemStack HANGING_MODEL = ItemDisplayElementUtil.getModel(Identifier.fromNamespaceAndPath(ColoredCopperLanterns.MOD_ID, "block/purple_copper_hanging_lantern"));
-        public static final ItemStack WALL_MODEL = ItemDisplayElementUtil.getModel(Identifier.fromNamespaceAndPath(ColoredCopperLanterns.MOD_ID, "block/purple_copper_wall_lantern"));
+        public static final LazyItemStack STANDING_MODEL = ItemDisplayElementUtil.getModel(Identifier.fromNamespaceAndPath(ColoredCopperLanterns.MOD_ID, "block/purple_copper_lantern"));
+        public static final LazyItemStack HANGING_MODEL = ItemDisplayElementUtil.getModel(Identifier.fromNamespaceAndPath(ColoredCopperLanterns.MOD_ID, "block/purple_copper_hanging_lantern"));
+        public static final LazyItemStack WALL_MODEL = ItemDisplayElementUtil.getModel(Identifier.fromNamespaceAndPath(ColoredCopperLanterns.MOD_ID, "block/purple_copper_wall_lantern"));
 
         public Model(BlockState state, ServerLevel world, BlockPos pos) {
             super(state, world, pos);
@@ -50,7 +51,7 @@ public class PurpleCopperLantern extends RedCopperLantern {
         public void init(BlockState state) {
             ModelType modelType = state.getValue(MODEL_TYPE);
 
-            ItemStack model = switch (modelType) {
+            LazyItemStack model = switch (modelType) {
                 case HANGING -> HANGING_MODEL;
                 case WALL -> WALL_MODEL;
                 case STANDING -> STANDING_MODEL;

@@ -23,7 +23,6 @@ public class ColoredCopperLanterns implements ModInitializer {
 		LOGGER.info("Hello Fabric world!");
         ColorfulCopperLanternsConfig.load();
 
-        initModels();
         if (PolymerResourcePackUtils.addModAssets(MOD_ID)) {
             ResourcePackExtras.forDefault().addBridgedModelsFolder(id("block"), id("item"), id("sgui"));
             LOGGER.info("Colorful Copper CopperLanterns 1.21.10-1.0");
@@ -31,56 +30,6 @@ public class ColoredCopperLanterns implements ModInitializer {
             LOGGER.error("Failed to add mod assets for " + MOD_ID);
         }
         PolymerResourcePackUtils.markAsRequired();
-    }
-
-    public void initModels(){
-        RedCopperLantern.Model.HANGING_MODEL.isEmpty();
-        RedCopperLantern.Model.STANDING_MODEL.isEmpty();
-
-        YellowCopperLantern.Model.HANGING_MODEL.isEmpty();
-        YellowCopperLantern.Model.STANDING_MODEL.isEmpty();
-
-        GreenCopperLantern.Model.HANGING_MODEL.isEmpty();
-        GreenCopperLantern.Model.STANDING_MODEL.isEmpty();
-
-        OrangeCopperLantern.Model.HANGING_MODEL.isEmpty();
-        OrangeCopperLantern.Model.STANDING_MODEL.isEmpty();
-
-        LimeCopperLantern.Model.HANGING_MODEL.isEmpty();
-        LimeCopperLantern.Model.STANDING_MODEL.isEmpty();
-
-        CyanCopperLantern.Model.HANGING_MODEL.isEmpty();
-        CyanCopperLantern.Model.STANDING_MODEL.isEmpty();
-
-        BlueCopperLantern.Model.HANGING_MODEL.isEmpty();
-        BlueCopperLantern.Model.STANDING_MODEL.isEmpty();
-
-        LightBlueCopperLantern.Model.HANGING_MODEL.isEmpty();
-        LightBlueCopperLantern.Model.STANDING_MODEL.isEmpty();
-
-        PurpleCopperLantern.Model.HANGING_MODEL.isEmpty();
-        PurpleCopperLantern.Model.STANDING_MODEL.isEmpty();
-
-        MagentaCopperLantern.Model.HANGING_MODEL.isEmpty();
-        MagentaCopperLantern.Model.STANDING_MODEL.isEmpty();
-
-        PinkCopperLantern.Model.HANGING_MODEL.isEmpty();
-        PinkCopperLantern.Model.STANDING_MODEL.isEmpty();
-
-        BrownCopperLantern.Model.HANGING_MODEL.isEmpty();
-        BrownCopperLantern.Model.STANDING_MODEL.isEmpty();
-
-        BlackCopperLantern.Model.HANGING_MODEL.isEmpty();
-        BlackCopperLantern.Model.STANDING_MODEL.isEmpty();
-
-        DarkGrayCopperLantern.Model.HANGING_MODEL.isEmpty();
-        DarkGrayCopperLantern.Model.STANDING_MODEL.isEmpty();
-
-        LightGrayCopperLantern.Model.HANGING_MODEL.isEmpty();
-        LightGrayCopperLantern.Model.STANDING_MODEL.isEmpty();
-
-        WhiteCopperLantern.Model.HANGING_MODEL.isEmpty();
-        WhiteCopperLantern.Model.STANDING_MODEL.isEmpty();
     }
 
     public static Identifier id(String path) {

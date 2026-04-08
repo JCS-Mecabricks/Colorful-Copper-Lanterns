@@ -2,6 +2,7 @@ package github.jcsmecabricks.block.lantern;
 
 import com.mojang.serialization.MapCodec;
 import eu.pb4.factorytools.api.block.FactoryBlock;
+import eu.pb4.factorytools.api.util.LazyItemStack;
 import eu.pb4.factorytools.api.virtualentity.BlockModel;
 import eu.pb4.factorytools.api.virtualentity.ItemDisplayElementUtil;
 import eu.pb4.polymer.virtualentity.api.ElementHolder;
@@ -10,7 +11,7 @@ import github.jcsmecabricks.ColoredCopperLanterns;
 import github.jcsmecabricks.entity.RedCopperLanternBlockEntity;
 import github.jcsmecabricks.registry.config.ColorfulCopperLanternsConfig;
 import github.jcsmecabricks.util.TransparentTripWire;
-import net.minecraft.block.*;
+import net.fabricmc.fabric.api.networking.v1.context.PacketContext;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.Identifier;
@@ -35,7 +36,6 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
-import xyz.nucleoid.packettweaker.PacketContext;
 
 //Credit to the Colorful Lanterns mod code to help make this mod.
 public class RedCopperLantern extends BaseEntityBlock implements TransparentTripWire, FactoryBlock, EntityBlock {
@@ -162,7 +162,7 @@ public class RedCopperLantern extends BaseEntityBlock implements TransparentTrip
     }
 
     @Override
-    public BlockState getPolymerBlockState(BlockState state, PacketContext context) {
+    public BlockState getPolymerBlockState(BlockState state, @org.jspecify.annotations.Nullable PacketContext packetContext) {
         boolean isHanging = state.getValue(HANGING);
         return Blocks.COPPER_LANTERN.unaffected().defaultBlockState().setValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.HANGING, isHanging);
     }
@@ -202,9 +202,9 @@ public class RedCopperLantern extends BaseEntityBlock implements TransparentTrip
     }
 
     public static class Model extends BlockModel {
-        public static final ItemStack STANDING_MODEL = ItemDisplayElementUtil.getModel(Identifier.fromNamespaceAndPath(ColoredCopperLanterns.MOD_ID, "block/red_copper_lantern"));
-        public static final ItemStack HANGING_MODEL = ItemDisplayElementUtil.getModel(Identifier.fromNamespaceAndPath(ColoredCopperLanterns.MOD_ID, "block/red_copper_hanging_lantern"));
-        public static final ItemStack WALL_MODEL = ItemDisplayElementUtil.getModel(Identifier.fromNamespaceAndPath(ColoredCopperLanterns.MOD_ID, "block/red_copper_wall_lantern"));
+        public static final LazyItemStack STANDING_MODEL = ItemDisplayElementUtil.getModel(Identifier.fromNamespaceAndPath(ColoredCopperLanterns.MOD_ID, "block/red_copper_lantern"));
+        public static final LazyItemStack HANGING_MODEL = ItemDisplayElementUtil.getModel(Identifier.fromNamespaceAndPath(ColoredCopperLanterns.MOD_ID, "block/red_copper_hanging_lantern"));
+        public static final LazyItemStack WALL_MODEL = ItemDisplayElementUtil.getModel(Identifier.fromNamespaceAndPath(ColoredCopperLanterns.MOD_ID, "block/red_copper_wall_lantern"));
         public ItemDisplayElement lantern;
         public ServerLevel world;
         public BlockPos pos;
@@ -219,7 +219,7 @@ public class RedCopperLantern extends BaseEntityBlock implements TransparentTrip
             ModelType modelType = state.getValue(MODEL_TYPE);
             Direction facing = state.getValue(FACING);
 
-            ItemStack model = switch (modelType) {
+            LazyItemStack model = switch (modelType) {
                 case HANGING -> HANGING_MODEL;
                 case WALL -> WALL_MODEL;
                 case STANDING -> STANDING_MODEL;

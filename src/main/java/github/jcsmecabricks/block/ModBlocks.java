@@ -1,6 +1,6 @@
 package github.jcsmecabricks.block;
 
-import eu.pb4.polymer.core.api.item.PolymerItemGroupUtils;
+import eu.pb4.polymer.core.api.item.PolymerCreativeModeTabUtils;
 import github.jcsmecabricks.ColoredCopperLanterns;
 import github.jcsmecabricks.block.lantern.*;
 import java.util.function.Function;
@@ -21,22 +21,22 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import static github.jcsmecabricks.ColoredCopperLanterns.MOD_ID;
 
 public class ModBlocks {
-    public static final Block RED_COPPER_LANTERN = registerBlock("red_copper_lantern", RedCopperLantern::new, Block.Settings.ofFullCopy(Blocks.COPPER_LANTERN.asList().get(1)));
-    public static final Block YELLOW_COPPER_LANTERN = registerBlock("yellow_copper_lantern", YellowCopperLantern::new, Block.Settings.ofFullCopy(Blocks.COPPER_LANTERN.asList().get(1)));
-    public static final Block GREEN_COPPER_LANTERN = registerBlock("green_copper_lantern", GreenCopperLantern::new, Block.Settings.ofFullCopy(Blocks.COPPER_LANTERN.asList().get(1)));
-    public static final Block ORANGE_COPPER_LANTERN = registerBlock("orange_copper_lantern", OrangeCopperLantern::new, Block.Settings.ofFullCopy(Blocks.COPPER_LANTERN.asList().get(1)));
-    public static final Block LIME_COPPER_LANTERN = registerBlock("lime_copper_lantern", LimeCopperLantern::new, Block.Settings.ofFullCopy(Blocks.COPPER_LANTERN.asList().get(1)));
-    public static final Block CYAN_COPPER_LANTERN = registerBlock("cyan_copper_lantern", CyanCopperLantern::new, Block.Settings.ofFullCopy(Blocks.COPPER_LANTERN.asList().get(1)));
-    public static final Block BLUE_COPPER_LANTERN = registerBlock("blue_copper_lantern", BlueCopperLantern::new, Block.Settings.ofFullCopy(Blocks.COPPER_LANTERN.asList().get(1)));
-    public static final Block LIGHT_BLUE_COPPER_LANTERN = registerBlock("light_blue_copper_lantern", LightBlueCopperLantern::new, Block.Settings.ofFullCopy(Blocks.COPPER_LANTERN.asList().get(1)));
-    public static final Block PURPLE_COPPER_LANTERN = registerBlock("purple_copper_lantern", PurpleCopperLantern::new, Block.Settings.ofFullCopy(Blocks.COPPER_LANTERN.asList().get(1)));
-    public static final Block MAGENTA_COPPER_LANTERN = registerBlock("magenta_copper_lantern", MagentaCopperLantern::new, Block.Settings.ofFullCopy(Blocks.COPPER_LANTERN.asList().get(1)));
-    public static final Block PINK_COPPER_LANTERN = registerBlock("pink_copper_lantern", PinkCopperLantern::new, Block.Settings.ofFullCopy(Blocks.COPPER_LANTERN.asList().get(1)));
-    public static final Block BROWN_COPPER_LANTERN = registerBlock("brown_copper_lantern", BrownCopperLantern::new, Block.Settings.ofFullCopy(Blocks.COPPER_LANTERN.asList().get(1)));
-    public static final Block BLACK_COPPER_LANTERN = registerBlock("black_copper_lantern", BlackCopperLantern::new, Block.Settings.ofFullCopy(Blocks.COPPER_LANTERN.asList().get(1)));
-    public static final Block DARK_GRAY_COPPER_LANTERN = registerBlock("dark_gray_copper_lantern", DarkGrayCopperLantern::new, Block.Settings.ofFullCopy(Blocks.COPPER_LANTERN.asList().get(1)));
-    public static final Block LIGHT_GRAY_COPPER_LANTERN = registerBlock("light_gray_copper_lantern", LightGrayCopperLantern::new, Block.Settings.ofFullCopy(Blocks.COPPER_LANTERN.asList().get(1)));
-    public static final Block WHITE_COPPER_LANTERN = registerBlock("white_copper_lantern", WhiteCopperLantern::new, Block.Settings.ofFullCopy(Blocks.COPPER_LANTERN.asList().get(1)));
+    public static final Block RED_COPPER_LANTERN = registerBlock("red_copper_lantern", RedCopperLantern::new, BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_LANTERN.asList().get(1)));
+    public static final Block YELLOW_COPPER_LANTERN = registerBlock("yellow_copper_lantern", YellowCopperLantern::new, BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_LANTERN.asList().get(1)));
+    public static final Block GREEN_COPPER_LANTERN = registerBlock("green_copper_lantern", GreenCopperLantern::new, BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_LANTERN.asList().get(1)));
+    public static final Block ORANGE_COPPER_LANTERN = registerBlock("orange_copper_lantern", OrangeCopperLantern::new, BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_LANTERN.asList().get(1)));
+    public static final Block LIME_COPPER_LANTERN = registerBlock("lime_copper_lantern", LimeCopperLantern::new, BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_LANTERN.asList().get(1)));
+    public static final Block CYAN_COPPER_LANTERN = registerBlock("cyan_copper_lantern", CyanCopperLantern::new, BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_LANTERN.asList().get(1)));
+    public static final Block BLUE_COPPER_LANTERN = registerBlock("blue_copper_lantern", BlueCopperLantern::new, BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_LANTERN.asList().get(1)));
+    public static final Block LIGHT_BLUE_COPPER_LANTERN = registerBlock("light_blue_copper_lantern", LightBlueCopperLantern::new, BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_LANTERN.asList().get(1)));
+    public static final Block PURPLE_COPPER_LANTERN = registerBlock("purple_copper_lantern", PurpleCopperLantern::new, BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_LANTERN.asList().get(1)));
+    public static final Block MAGENTA_COPPER_LANTERN = registerBlock("magenta_copper_lantern", MagentaCopperLantern::new, BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_LANTERN.asList().get(1)));
+    public static final Block PINK_COPPER_LANTERN = registerBlock("pink_copper_lantern", PinkCopperLantern::new, BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_LANTERN.asList().get(1)));
+    public static final Block BROWN_COPPER_LANTERN = registerBlock("brown_copper_lantern", BrownCopperLantern::new, BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_LANTERN.asList().get(1)));
+    public static final Block BLACK_COPPER_LANTERN = registerBlock("black_copper_lantern", BlackCopperLantern::new, BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_LANTERN.asList().get(1)));
+    public static final Block DARK_GRAY_COPPER_LANTERN = registerBlock("dark_gray_copper_lantern", DarkGrayCopperLantern::new, BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_LANTERN.asList().get(1)));
+    public static final Block LIGHT_GRAY_COPPER_LANTERN = registerBlock("light_gray_copper_lantern", LightGrayCopperLantern::new, BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_LANTERN.asList().get(1)));
+    public static final Block WHITE_COPPER_LANTERN = registerBlock("white_copper_lantern", WhiteCopperLantern::new, BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_LANTERN.asList().get(1)));
 
     public static final BlockItem RED_COPPER_LANTERN_ITEM = registerBlockItem("red_copper_lantern", settings -> new TexturedPolyBlockItem(RED_COPPER_LANTERN, settings), new Item.Properties());
     public static final BlockItem YELLOW_COPPER_LANTERN_ITEM = registerBlockItem("yellow_copper_lantern", settings -> new TexturedPolyBlockItem(YELLOW_COPPER_LANTERN, settings), new Item.Properties());
@@ -56,7 +56,7 @@ public class ModBlocks {
     public static final BlockItem WHITE_COPPER_LANTERN_ITEM = registerBlockItem("white_copper_lantern", settings -> new TexturedPolyBlockItem(WHITE_COPPER_LANTERN, settings), new Item.Properties());
 
     public static void registerBlocks() {
-        CreativeModeTab.Builder builder = PolymerItemGroupUtils.builder();
+        CreativeModeTab.Builder builder = PolymerCreativeModeTabUtils.builder();
         builder.icon(() -> new ItemStack(ModBlocks.RED_COPPER_LANTERN_ITEM, 1));
         builder.title(Component.literal("Colorful Copper Lanterns"));
         builder.displayItems((displayContext, entries) -> {
@@ -78,7 +78,7 @@ public class ModBlocks {
             entries.accept(WHITE_COPPER_LANTERN);
         });
         CreativeModeTab polymerGroup = builder.build();
-        PolymerItemGroupUtils.registerPolymerItemGroup(Identifier.fromNamespaceAndPath(MOD_ID, "blocks"), polymerGroup);
+        PolymerCreativeModeTabUtils.registerPolymerCreativeModeTab(Identifier.fromNamespaceAndPath(MOD_ID, "blocks"), polymerGroup);
     }
 
     public static Block registerBlock(String name, Function<BlockBehaviour.Properties, Block> factory, BlockBehaviour.Properties settings){
