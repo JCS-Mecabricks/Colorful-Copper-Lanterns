@@ -4,11 +4,11 @@ import eu.pb4.polymer.core.api.block.PolymerBlockUtils;
 import github.jcsmecabricks.ColoredCopperLanterns;
 import github.jcsmecabricks.block.ModBlocks;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 
 public class ModEntities {
     public static final BlockEntityType<RedCopperLanternBlockEntity> RED_COPPER_LANTERN = register("red_copper_lantern", FabricBlockEntityTypeBuilder.create(RedCopperLanternBlockEntity::new, ModBlocks.RED_COPPER_LANTERN));
@@ -30,7 +30,7 @@ public class ModEntities {
     public static void register() {}
 
     public static <T extends BlockEntity> BlockEntityType<T> register(String path, FabricBlockEntityTypeBuilder<T> factory) {
-        BlockEntityType<T> blockEntityType = Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of(ColoredCopperLanterns.MOD_ID, path), factory.build());
+        BlockEntityType<T> blockEntityType = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, Identifier.fromNamespaceAndPath(ColoredCopperLanterns.MOD_ID, path), factory.build());
         PolymerBlockUtils.registerBlockEntity(blockEntityType);
 
         return blockEntityType;

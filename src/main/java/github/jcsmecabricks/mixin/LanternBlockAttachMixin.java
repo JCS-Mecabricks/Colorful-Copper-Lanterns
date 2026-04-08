@@ -1,12 +1,12 @@
 package github.jcsmecabricks.mixin;
 
 import github.jcsmecabricks.block.lantern.RedCopperLantern;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.LanternBlock;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.WorldView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LanternBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -19,15 +19,15 @@ public abstract class LanternBlockAttachMixin {
 
     @Shadow @Final public static BooleanProperty HANGING;
 
-    @Inject(method = "canPlaceAt", at = @At("RETURN"), cancellable = true)
-    private void coloredlanterns_canPlaceAtUnderLantern(BlockState state, WorldView world, BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
-        if (state.get(HANGING)) {
-            BlockPos abovePos = pos.up();
+    @Inject(method = "canSurvive", at = @At("RETURN"), cancellable = true)
+    private void coloredlanterns_canPlaceAtUnderLantern(BlockState state, LevelReader world, BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
+        if (state.getValue(HANGING)) {
+            BlockPos abovePos = pos.above();
             BlockState stateAbove = world.getBlockState(abovePos);
-            boolean canAttach = stateAbove.isSolidBlock(world, abovePos) ||
-                    stateAbove.isOf(Blocks.COPPER_CHAINS.unaffected()) || stateAbove.isOf(Blocks.IRON_CHAIN) ||
-                    (stateAbove.isOf(Blocks.LANTERN) && !stateAbove.get(LanternBlock.HANGING)) ||
-                    (stateAbove.getBlock() instanceof RedCopperLantern && !stateAbove.get(RedCopperLantern.HANGING));
+            boolean canAttach = stateAbove.isRedstoneConductor(world, abovePos) ||
+                    stateAbove.is(Blocks.COPPER_CHAIN.unaffected()) || stateAbove.is(Blocks.IRON_CHAIN) ||
+                    (stateAbove.is(Blocks.LANTERN) && !stateAbove.getValue(LanternBlock.HANGING)) ||
+                    (stateAbove.getBlock() instanceof RedCopperLantern && !stateAbove.getValue(RedCopperLantern.HANGING));
 
             if (canAttach) {
                 cir.setReturnValue(true);

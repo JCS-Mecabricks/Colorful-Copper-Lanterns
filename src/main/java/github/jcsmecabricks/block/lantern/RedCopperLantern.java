@@ -11,36 +11,41 @@ import github.jcsmecabricks.entity.RedCopperLanternBlockEntity;
 import github.jcsmecabricks.registry.config.ColorfulCopperLanternsConfig;
 import github.jcsmecabricks.util.TransparentTripWire;
 import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.EnumProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.ItemScatterer;
-import net.minecraft.util.StringIdentifiable;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
-import net.minecraft.world.tick.ScheduledTickView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.Containers;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 import xyz.nucleoid.packettweaker.PacketContext;
 
 //Credit to the Colorful Lanterns mod code to help make this mod.
-public class RedCopperLantern extends BlockWithEntity implements TransparentTripWire, FactoryBlock, BlockEntityProvider {
-    public static final BooleanProperty HANGING = Properties.HANGING;
-    public static final EnumProperty<Direction> FACING = Properties.HORIZONTAL_FACING;
-    public static final EnumProperty<ModelType> MODEL_TYPE = EnumProperty.of("model_type", ModelType.class);
-    public static final MapCodec<RedCopperLantern> CODEC = createCodec(RedCopperLantern::new);
+public class RedCopperLantern extends BaseEntityBlock implements TransparentTripWire, FactoryBlock, EntityBlock {
+    public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
+    public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
+    public static final EnumProperty<ModelType> MODEL_TYPE = EnumProperty.create("model_type", ModelType.class);
+    public static final MapCodec<RedCopperLantern> CODEC = simpleCodec(RedCopperLantern::new);
     private RedCopperLantern.Model model;
 
-    public enum ModelType implements StringIdentifiable {
+    public enum ModelType implements StringRepresentable {
         STANDING("standing"),
         HANGING("hanging"),
         WALL("wall");
@@ -52,167 +57,167 @@ public class RedCopperLantern extends BlockWithEntity implements TransparentTrip
         }
 
         @Override
-        public String asString() {
+        public String getSerializedName() {
             return this.name;
         }
     }
 
-    public RedCopperLantern(Settings settings) {
+    public RedCopperLantern(Properties settings) {
         super(settings
-                .nonOpaque()
-                .luminance(state -> 15)
+                .noOcclusion()
+                .lightLevel(state -> 15)
         );
-        this.setDefaultState(this.stateManager.getDefaultState()
-                .with(HANGING, false)
-                .with(FACING, Direction.NORTH)
-                .with(MODEL_TYPE, ModelType.STANDING));
+        this.registerDefaultState(this.stateDefinition.any()
+                .setValue(HANGING, false)
+                .setValue(FACING, Direction.NORTH)
+                .setValue(MODEL_TYPE, ModelType.STANDING));
     }
 
-    protected RedCopperLantern(Settings settings, boolean isSubclass) {
+    protected RedCopperLantern(Properties settings, boolean isSubclass) {
         super(settings
-                .nonOpaque()
-                .luminance(state -> 15)
+                .noOcclusion()
+                .lightLevel(state -> 15)
         );
-        this.setDefaultState(this.stateManager.getDefaultState()
-                .with(HANGING, false)
-                .with(FACING, Direction.NORTH)
-                .with(MODEL_TYPE, ModelType.STANDING));
+        this.registerDefaultState(this.stateDefinition.any()
+                .setValue(HANGING, false)
+                .setValue(FACING, Direction.NORTH)
+                .setValue(MODEL_TYPE, ModelType.STANDING));
     }
 
     @Override
     public BlockState getPolymerBreakEventBlockState(BlockState state, PacketContext context) {
-        return Blocks.COPPER_LANTERNS.unaffected().getDefaultState();
+        return Blocks.COPPER_LANTERN.unaffected().defaultBlockState();
     }
 
     @Override
-    protected MapCodec<? extends BlockWithEntity> getCodec() {
+    protected MapCodec<? extends BaseEntityBlock> codec() {
         return CODEC;
     }
 
     @Override
-    public @Nullable BlockState getPlacementState(ItemPlacementContext ctx) {
-        World world = ctx.getWorld();
-        BlockPos pos = ctx.getBlockPos();
-        Direction playerFacing = ctx.getHorizontalPlayerFacing().getOpposite();
-        Direction clickedFace = ctx.getSide();
+    public @Nullable BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        Level world = ctx.getLevel();
+        BlockPos pos = ctx.getClickedPos();
+        Direction playerFacing = ctx.getHorizontalDirection().getOpposite();
+        Direction clickedFace = ctx.getClickedFace();
 
         if (ColorfulCopperLanternsConfig.get().PolyDecorationsLanterns && clickedFace.getAxis().isHorizontal()) {
-            BlockState wallState = this.getDefaultState()
-                    .with(HANGING, false)
-                    .with(FACING, clickedFace)
-                    .with(MODEL_TYPE, ModelType.WALL);
-            if (wallState.canPlaceAt(world, pos)) {
+            BlockState wallState = this.defaultBlockState()
+                    .setValue(HANGING, false)
+                    .setValue(FACING, clickedFace)
+                    .setValue(MODEL_TYPE, ModelType.WALL);
+            if (wallState.canSurvive(world, pos)) {
                 return wallState;
             }
         }
 
         // Hanging
         if (clickedFace == Direction.DOWN) {
-            BlockState hangingState = this.getDefaultState()
-                    .with(HANGING, true)
-                    .with(FACING, playerFacing)
-                    .with(MODEL_TYPE, ModelType.HANGING);
-            if (hangingState.canPlaceAt(world, pos)) {
+            BlockState hangingState = this.defaultBlockState()
+                    .setValue(HANGING, true)
+                    .setValue(FACING, playerFacing)
+                    .setValue(MODEL_TYPE, ModelType.HANGING);
+            if (hangingState.canSurvive(world, pos)) {
                 return hangingState;
             }
         }
 
         // Standing
-        BlockState standingState = this.getDefaultState()
-                .with(HANGING, false)
-                .with(FACING, playerFacing)
-                .with(MODEL_TYPE, ModelType.STANDING);
-        return standingState.canPlaceAt(world, pos) ? standingState : null;
+        BlockState standingState = this.defaultBlockState()
+                .setValue(HANGING, false)
+                .setValue(FACING, playerFacing)
+                .setValue(MODEL_TYPE, ModelType.STANDING);
+        return standingState.canSurvive(world, pos) ? standingState : null;
     }
 
 
     @Override
-    protected boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-        ModelType modelType = state.get(MODEL_TYPE);
-        Direction facing = state.get(FACING);
+    protected boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
+        ModelType modelType = state.getValue(MODEL_TYPE);
+        Direction facing = state.getValue(FACING);
         if (modelType == ModelType.HANGING) {
-            return Block.sideCoversSmallSquare(world, pos.up(), Direction.DOWN);
+            return Block.canSupportCenter(world, pos.above(), Direction.DOWN);
         } else if (modelType == ModelType.WALL) {
-            return Block.sideCoversSmallSquare(world, pos.offset(facing.getOpposite()), facing);
+            return Block.canSupportCenter(world, pos.relative(facing.getOpposite()), facing);
         } else {
-            return Block.sideCoversSmallSquare(world, pos.down(), Direction.UP);
+            return Block.canSupportCenter(world, pos.below(), Direction.UP);
         }
     }
 
     @Override
-    public BlockState getStateForNeighborUpdate(BlockState state, WorldView world, ScheduledTickView tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, Random random) {
-        if (!state.canPlaceAt(world, pos)) {
-            if (world instanceof World actualWorld) {
-                actualWorld.scheduleBlockTick(pos, this, 1);
+    public BlockState updateShape(BlockState state, LevelReader world, ScheduledTickAccess tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, RandomSource random) {
+        if (!state.canSurvive(world, pos)) {
+            if (world instanceof Level actualWorld) {
+                actualWorld.scheduleTick(pos, this, 1);
             }
         }
-        return super.getStateForNeighborUpdate(state, world, tickView, pos, direction, neighborPos, neighborState, random);
+        return super.updateShape(state, world, tickView, pos, direction, neighborPos, neighborState, random);
     }
 
     @Override
-    public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        if (!this.canPlaceAt(state, world, pos)) {
-            world.breakBlock(pos, true);
+    public void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
+        if (!this.canSurvive(state, world, pos)) {
+            world.destroyBlock(pos, true);
         }
     }
 
     @Override
     public BlockState getPolymerBlockState(BlockState state, PacketContext context) {
-        boolean isHanging = state.get(HANGING);
-        return Blocks.COPPER_LANTERNS.unaffected().getDefaultState().with(net.minecraft.state.property.Properties.HANGING, isHanging);
+        boolean isHanging = state.getValue(HANGING);
+        return Blocks.COPPER_LANTERN.unaffected().defaultBlockState().setValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.HANGING, isHanging);
     }
 
     @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new RedCopperLanternBlockEntity(pos, state);
     }
 
     @Override
-    protected void onStateReplaced(BlockState state, ServerWorld world, BlockPos pos, boolean moved) {
-        ItemScatterer.onStateReplaced(state, world, pos);
-        super.onStateReplaced(state, world, pos, moved);
+    protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel world, BlockPos pos, boolean moved) {
+        Containers.updateNeighboursAfterDestroy(state, world, pos);
+        super.affectNeighborsAfterRemoval(state, world, pos, moved);
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(HANGING, FACING, MODEL_TYPE);
-        super.appendProperties(builder);
+        super.createBlockStateDefinition(builder);
     }
 
     @Override
-    public @Nullable ElementHolder createElementHolder(ServerWorld world, BlockPos pos, BlockState initialBlockState) {
+    public @Nullable ElementHolder createElementHolder(ServerLevel world, BlockPos pos, BlockState initialBlockState) {
         model = createModel(initialBlockState, world, pos);
         return model;
     }
 
     @Override
-    public boolean tickElementHolder(ServerWorld world, BlockPos pos, BlockState initialBlockState) {
+    public boolean tickElementHolder(ServerLevel world, BlockPos pos, BlockState initialBlockState) {
         this.model.tick();
         return true;
     }
 
-    protected RedCopperLantern.Model createModel(BlockState initialBlockState, ServerWorld world, BlockPos pos) {
+    protected RedCopperLantern.Model createModel(BlockState initialBlockState, ServerLevel world, BlockPos pos) {
         return new RedCopperLantern.Model(initialBlockState, world, pos);
     }
 
     public static class Model extends BlockModel {
-        public static final ItemStack STANDING_MODEL = ItemDisplayElementUtil.getModel(Identifier.of(ColoredCopperLanterns.MOD_ID, "block/red_copper_lantern"));
-        public static final ItemStack HANGING_MODEL = ItemDisplayElementUtil.getModel(Identifier.of(ColoredCopperLanterns.MOD_ID, "block/red_copper_hanging_lantern"));
-        public static final ItemStack WALL_MODEL = ItemDisplayElementUtil.getModel(Identifier.of(ColoredCopperLanterns.MOD_ID, "block/red_copper_wall_lantern"));
+        public static final ItemStack STANDING_MODEL = ItemDisplayElementUtil.getModel(Identifier.fromNamespaceAndPath(ColoredCopperLanterns.MOD_ID, "block/red_copper_lantern"));
+        public static final ItemStack HANGING_MODEL = ItemDisplayElementUtil.getModel(Identifier.fromNamespaceAndPath(ColoredCopperLanterns.MOD_ID, "block/red_copper_hanging_lantern"));
+        public static final ItemStack WALL_MODEL = ItemDisplayElementUtil.getModel(Identifier.fromNamespaceAndPath(ColoredCopperLanterns.MOD_ID, "block/red_copper_wall_lantern"));
         public ItemDisplayElement lantern;
-        public ServerWorld world;
+        public ServerLevel world;
         public BlockPos pos;
 
-        public Model(BlockState state, ServerWorld world, BlockPos pos) {
+        public Model(BlockState state, ServerLevel world, BlockPos pos) {
             this.world = world;
             this.pos = pos;
             init(state);
         }
 
         public void init(BlockState state) {
-            ModelType modelType = state.get(MODEL_TYPE);
-            Direction facing = state.get(FACING);
+            ModelType modelType = state.getValue(MODEL_TYPE);
+            Direction facing = state.getValue(FACING);
 
             ItemStack model = switch (modelType) {
                 case HANGING -> HANGING_MODEL;
@@ -224,7 +229,7 @@ public class RedCopperLantern extends BlockWithEntity implements TransparentTrip
             this.lantern.setScale(new Vector3f(2f));
 
             if (modelType == ModelType.WALL) {
-                float yaw = facing.getPositiveHorizontalDegrees();
+                float yaw = facing.toYRot();
                 this.lantern.setYaw(yaw);
             }
             this.addElement(lantern);

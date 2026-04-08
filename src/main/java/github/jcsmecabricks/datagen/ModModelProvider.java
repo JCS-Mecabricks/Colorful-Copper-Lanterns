@@ -3,9 +3,9 @@ package github.jcsmecabricks.datagen;
 import github.jcsmecabricks.block.ModBlocks;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.minecraft.client.data.BlockStateModelGenerator;
-import net.minecraft.client.data.ItemModelGenerator;
-import net.minecraft.client.data.Models;
+import net.minecraft.client.data.models.BlockModelGenerators;
+import net.minecraft.client.data.models.ItemModelGenerators;
+import net.minecraft.client.data.models.model.ModelTemplates;
 
 public class ModModelProvider extends FabricModelProvider {
     public ModModelProvider(FabricDataOutput output) {
@@ -13,26 +13,26 @@ public class ModModelProvider extends FabricModelProvider {
     }
 
     @Override
-    public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
+    public void generateBlockStateModels(BlockModelGenerators blockStateModelGenerator) {
     }
 
     @Override
-    public void generateItemModels(ItemModelGenerator itemModelGenerator) {
-        itemModelGenerator.register(ModBlocks.RED_COPPER_LANTERN_ITEM, Models.GENERATED);
-        itemModelGenerator.register(ModBlocks.YELLOW_COPPER_LANTERN_ITEM, Models.GENERATED);
-        itemModelGenerator.register(ModBlocks.GREEN_COPPER_LANTERN_ITEM, Models.GENERATED);
-        itemModelGenerator.register(ModBlocks.ORANGE_COPPER_LANTERN_ITEM, Models.GENERATED);
-        itemModelGenerator.register(ModBlocks.LIME_COPPER_LANTERN_ITEM, Models.GENERATED);
-        itemModelGenerator.register(ModBlocks.CYAN_COPPER_LANTERN_ITEM, Models.GENERATED);
-        itemModelGenerator.register(ModBlocks.BLUE_COPPER_LANTERN_ITEM, Models.GENERATED);
-        itemModelGenerator.register(ModBlocks.LIGHT_BLUE_COPPER_LANTERN_ITEM, Models.GENERATED);
-        itemModelGenerator.register(ModBlocks.PURPLE_COPPER_LANTERN_ITEM, Models.GENERATED);
-        itemModelGenerator.register(ModBlocks.MAGENTA_COPPER_LANTERN_ITEM, Models.GENERATED);
-        itemModelGenerator.register(ModBlocks.PINK_COPPER_LANTERN_ITEM, Models.GENERATED);
-        itemModelGenerator.register(ModBlocks.BROWN_COPPER_LANTERN_ITEM, Models.GENERATED);
-        itemModelGenerator.register(ModBlocks.BLACK_COPPER_LANTERN_ITEM, Models.GENERATED);
-        itemModelGenerator.register(ModBlocks.DARK_GRAY_COPPER_LANTERN_ITEM, Models.GENERATED);
-        itemModelGenerator.register(ModBlocks.LIGHT_GRAY_COPPER_LANTERN_ITEM, Models.GENERATED);
-        itemModelGenerator.register(ModBlocks.WHITE_COPPER_LANTERN_ITEM, Models.GENERATED);
+    public void generateItemModels(ItemModelGenerators itemModelGenerator) {
+        itemModelGenerator.generateFlatItem(ModBlocks.RED_COPPER_LANTERN_ITEM, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModBlocks.YELLOW_COPPER_LANTERN_ITEM, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModBlocks.GREEN_COPPER_LANTERN_ITEM, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModBlocks.ORANGE_COPPER_LANTERN_ITEM, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModBlocks.LIME_COPPER_LANTERN_ITEM, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModBlocks.CYAN_COPPER_LANTERN_ITEM, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModBlocks.BLUE_COPPER_LANTERN_ITEM, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModBlocks.LIGHT_BLUE_COPPER_LANTERN_ITEM, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModBlocks.PURPLE_COPPER_LANTERN_ITEM, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModBlocks.MAGENTA_COPPER_LANTERN_ITEM, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModBlocks.PINK_COPPER_LANTERN_ITEM, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModBlocks.BROWN_COPPER_LANTERN_ITEM, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModBlocks.BLACK_COPPER_LANTERN_ITEM, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModBlocks.DARK_GRAY_COPPER_LANTERN_ITEM, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModBlocks.LIGHT_GRAY_COPPER_LANTERN_ITEM, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModBlocks.WHITE_COPPER_LANTERN_ITEM, ModelTemplates.FLAT_ITEM);
     }
 }

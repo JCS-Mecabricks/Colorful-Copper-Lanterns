@@ -7,8 +7,7 @@ import github.jcsmecabricks.block.lantern.*;
 import github.jcsmecabricks.entity.ModEntities;
 import github.jcsmecabricks.registry.config.ColorfulCopperLanternsConfig;
 import net.fabricmc.api.ModInitializer;
-
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -85,6 +84,6 @@ public class ColoredCopperLanterns implements ModInitializer {
     }
 
     public static Identifier id(String path) {
-        return Identifier.of(MOD_ID, path);
+        return Identifier.fromNamespaceAndPath(MOD_ID, path);
     }
 }
