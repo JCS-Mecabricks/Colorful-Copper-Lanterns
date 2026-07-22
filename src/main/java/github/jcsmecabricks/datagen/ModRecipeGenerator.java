@@ -20,28 +20,29 @@ public class ModRecipeGenerator extends RecipeProvider {
 
     @Override
     public void buildRecipes() {
-        lanternRecipe(ModBlocks.RED_COPPER_LANTERN_ITEM, Items.RED_DYE, output);
-        lanternRecipe(ModBlocks.YELLOW_COPPER_LANTERN_ITEM, Items.YELLOW_DYE, output);
-        lanternRecipe(ModBlocks.GREEN_COPPER_LANTERN_ITEM, Items.GREEN_DYE, output);
-        lanternRecipe(ModBlocks.ORANGE_COPPER_LANTERN_ITEM, Items.ORANGE_DYE, output);
-        lanternRecipe(ModBlocks.LIME_COPPER_LANTERN_ITEM, Items.LIME_DYE, output);
-        lanternRecipe(ModBlocks.CYAN_COPPER_LANTERN_ITEM, Items.CYAN_DYE, output);
-        lanternRecipe(ModBlocks.BLUE_COPPER_LANTERN_ITEM, Items.BLUE_DYE, output);
-        lanternRecipe(ModBlocks.LIGHT_BLUE_COPPER_LANTERN_ITEM, Items.LIGHT_BLUE_DYE, output);
-        lanternRecipe(ModBlocks.PURPLE_COPPER_LANTERN_ITEM, Items.PURPLE_DYE, output);
-        lanternRecipe(ModBlocks.MAGENTA_COPPER_LANTERN_ITEM, Items.MAGENTA_DYE, output);
-        lanternRecipe(ModBlocks.PINK_COPPER_LANTERN_ITEM, Items.PINK_DYE, output);
-        lanternRecipe(ModBlocks.BROWN_COPPER_LANTERN_ITEM, Items.BROWN_DYE, output);
-        lanternRecipe(ModBlocks.BLACK_COPPER_LANTERN_ITEM, Items.BLACK_DYE, output);
-        lanternRecipe(ModBlocks.DARK_GRAY_COPPER_LANTERN_ITEM, Items.GRAY_DYE, output);
-        lanternRecipe(ModBlocks.LIGHT_GRAY_COPPER_LANTERN_ITEM, Items.LIGHT_GRAY_DYE, output);
-        lanternRecipe(ModBlocks.WHITE_COPPER_LANTERN_ITEM, Items.WHITE_DYE, output);
+        lanternRecipe(ModBlocks.RED_COPPER_LANTERN_ITEM, Items.DYE.red(), output);
+        lanternRecipe(ModBlocks.YELLOW_COPPER_LANTERN_ITEM, Items.DYE.yellow(), output);
+        lanternRecipe(ModBlocks.GREEN_COPPER_LANTERN_ITEM, Items.DYE.green(), output);
+        lanternRecipe(ModBlocks.ORANGE_COPPER_LANTERN_ITEM, Items.DYE.orange(), output);
+        lanternRecipe(ModBlocks.LIME_COPPER_LANTERN_ITEM, Items.DYE.lime(), output);
+        lanternRecipe(ModBlocks.CYAN_COPPER_LANTERN_ITEM, Items.DYE.cyan(), output);
+        lanternRecipe(ModBlocks.BLUE_COPPER_LANTERN_ITEM, Items.DYE.blue(), output);
+        lanternRecipe(ModBlocks.LIGHT_BLUE_COPPER_LANTERN_ITEM, Items.DYE.lightBlue(), output);
+        lanternRecipe(ModBlocks.PURPLE_COPPER_LANTERN_ITEM, Items.DYE.purple(), output);
+        lanternRecipe(ModBlocks.MAGENTA_COPPER_LANTERN_ITEM, Items.DYE.magenta(), output);
+        lanternRecipe(ModBlocks.PINK_COPPER_LANTERN_ITEM, Items.DYE.pink(), output);
+        lanternRecipe(ModBlocks.BROWN_COPPER_LANTERN_ITEM, Items.DYE.brown(), output);
+        lanternRecipe(ModBlocks.BLACK_COPPER_LANTERN_ITEM, Items.DYE.black(), output);
+        lanternRecipe(ModBlocks.DARK_GRAY_COPPER_LANTERN_ITEM, Items.DYE.gray(), output);
+        lanternRecipe(ModBlocks.LIGHT_GRAY_COPPER_LANTERN_ITEM, Items.DYE.lightGray(), output);
+        lanternRecipe(ModBlocks.WHITE_COPPER_LANTERN_ITEM, Items.DYE.white(), output);
     }
 
     private void lanternRecipe(Item item, Item ingredient, RecipeOutput exporter) {
         shapeless(RecipeCategory.DECORATIONS, item, 1)
                 .requires(ingredient)
-                .requires(Items.COPPER_LANTERN.unaffected())
+                .requires(Items.COPPER_LANTERN.waxed().unaffected())
+                .requires(Items.COPPER_LANTERN.weathering().unaffected())
                 .unlockedBy(getHasName(ingredient), has(ingredient))
                 .save(exporter);
     }

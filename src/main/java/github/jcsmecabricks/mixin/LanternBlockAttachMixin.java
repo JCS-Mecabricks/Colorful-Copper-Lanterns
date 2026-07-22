@@ -25,7 +25,7 @@ public abstract class LanternBlockAttachMixin {
             BlockPos abovePos = pos.above();
             BlockState stateAbove = world.getBlockState(abovePos);
             boolean canAttach = stateAbove.isRedstoneConductor(world, abovePos) ||
-                    stateAbove.is(Blocks.COPPER_CHAIN.unaffected()) || stateAbove.is(Blocks.IRON_CHAIN) ||
+                    stateAbove.is(Blocks.COPPER_CHAIN.waxed().unaffected()) || stateAbove.is(Blocks.IRON_CHAIN) ||
                     (stateAbove.is(Blocks.LANTERN) && !stateAbove.getValue(LanternBlock.HANGING)) ||
                     (stateAbove.getBlock() instanceof RedCopperLantern && !stateAbove.getValue(RedCopperLantern.HANGING));
 

@@ -21,6 +21,9 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import static github.jcsmecabricks.ColoredCopperLanterns.MOD_ID;
 
 public class ModBlocks {
+    public static ResourceKey<Block> getRK(Block block) {
+        return BuiltInRegistries.BLOCK.getResourceKey(block).get();
+    }
     public static final Block RED_COPPER_LANTERN = registerBlock("red_copper_lantern", RedCopperLantern::new, BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_LANTERN.asList().get(1)));
     public static final Block YELLOW_COPPER_LANTERN = registerBlock("yellow_copper_lantern", YellowCopperLantern::new, BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_LANTERN.asList().get(1)));
     public static final Block GREEN_COPPER_LANTERN = registerBlock("green_copper_lantern", GreenCopperLantern::new, BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_LANTERN.asList().get(1)));

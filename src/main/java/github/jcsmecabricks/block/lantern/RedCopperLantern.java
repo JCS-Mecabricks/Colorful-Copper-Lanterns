@@ -86,7 +86,7 @@ public class RedCopperLantern extends BaseEntityBlock implements TransparentTrip
 
     @Override
     public BlockState getPolymerBreakEventBlockState(BlockState state, PacketContext context) {
-        return Blocks.COPPER_LANTERN.unaffected().defaultBlockState();
+        return Blocks.COPPER_LANTERN.waxed().unaffected().defaultBlockState();
     }
 
     @Override
@@ -164,7 +164,7 @@ public class RedCopperLantern extends BaseEntityBlock implements TransparentTrip
     @Override
     public BlockState getPolymerBlockState(BlockState state, @org.jspecify.annotations.Nullable PacketContext packetContext) {
         boolean isHanging = state.getValue(HANGING);
-        return Blocks.COPPER_LANTERN.unaffected().defaultBlockState().setValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.HANGING, isHanging);
+        return Blocks.COPPER_LANTERN.waxed().unaffected().defaultBlockState().setValue(BlockStateProperties.HANGING, isHanging);
     }
 
     @Nullable
