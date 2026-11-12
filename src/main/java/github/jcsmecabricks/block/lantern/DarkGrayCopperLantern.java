@@ -17,16 +17,11 @@ import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 
 public class DarkGrayCopperLantern extends RedCopperLantern {
-    public static final MapCodec<DarkGrayCopperLantern> CODEC = simpleCodec(DarkGrayCopperLantern::new);
 
     public DarkGrayCopperLantern(BlockBehaviour.Properties settings) {
         super(settings);
     }
 
-    @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
-        return CODEC;
-    }
 
     @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {

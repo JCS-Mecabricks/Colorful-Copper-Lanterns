@@ -42,7 +42,6 @@ public class RedCopperLantern extends BaseEntityBlock implements TransparentTrip
     public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final EnumProperty<ModelType> MODEL_TYPE = EnumProperty.create("model_type", ModelType.class);
-    public static final MapCodec<RedCopperLantern> CODEC = simpleCodec(RedCopperLantern::new);
     private RedCopperLantern.Model model;
 
     public enum ModelType implements StringRepresentable {
@@ -87,11 +86,6 @@ public class RedCopperLantern extends BaseEntityBlock implements TransparentTrip
     @Override
     public BlockState getPolymerBreakEventBlockState(BlockState state, PacketContext context) {
         return Blocks.COPPER_LANTERN.waxed().unaffected().defaultBlockState();
-    }
-
-    @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
-        return CODEC;
     }
 
     @Override

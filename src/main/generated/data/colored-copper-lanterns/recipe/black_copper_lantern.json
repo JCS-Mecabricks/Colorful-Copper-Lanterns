@@ -1,12 +1,11 @@
 {
   "type": "minecraft:crafting_shapeless",
-  "category": "misc",
   "ingredients": [
     "minecraft:black_dye",
+    "minecraft:waxed_copper_lantern",
     "minecraft:copper_lantern"
   ],
   "result": {
-    "count": 1,
     "id": "colored-copper-lanterns:black_copper_lantern"
   }
 }

@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "colored-copper-lanterns:white_copper_lantern"
+        "recipes": "colored-copper-lanterns:white_copper_lantern"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

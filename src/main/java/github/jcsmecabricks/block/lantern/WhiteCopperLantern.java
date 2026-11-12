@@ -17,15 +17,9 @@ import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 
 public class WhiteCopperLantern extends RedCopperLantern {
-    public static final MapCodec<WhiteCopperLantern> CODEC = simpleCodec(WhiteCopperLantern::new);
 
     public WhiteCopperLantern(BlockBehaviour.Properties settings) {
         super(settings);
-    }
-
-    @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
-        return CODEC;
     }
 
     @Override

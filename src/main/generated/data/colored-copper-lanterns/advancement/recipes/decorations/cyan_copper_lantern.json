@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "colored-copper-lanterns:cyan_copper_lantern"
+        "recipes": "colored-copper-lanterns:cyan_copper_lantern"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
